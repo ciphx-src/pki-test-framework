@@ -5,11 +5,11 @@ ifndef TARGET
 endif
 
 all:
-	mkdir -p $(TARGET)
-	cp -r pki $(TARGET)/docker
-	cp pki.sh $(TARGET)/docker
-	$(DOCKER) build -q --secret id=password,src=../password.txt --secret id=password-ca,src=../password-ca.txt -f pki.Dockerfile $(TARGET)/docker > $(TARGET)/image.hash
-	$(DOCKER) run --rm -v $(abspath $(TARGET))/material:/dest $(shell cat $(TARGET)/image.hash)
+	mkdir -p $(TARGET)/material
+	cp -r pki $(TARGET)
+	cp pki.sh $(TARGET)
+	$(DOCKER) build -q --secret id=password,src=../password.txt --secret id=password-ca,src=../password-ca.txt -f pki.Dockerfile $(TARGET)
+#	$(DOCKER) run --rm -v $(abspath $(TARGET)/material):/dest $()
 
 #clean:
 #	rm -fr $(dir $@)/docker
