@@ -1,0 +1,8 @@
+authority = bluthdigital.com/bluthdigital.com
+
+
+AIA = https://${ENV::AIA_SUBDOMAN}bluthdigital.com/certificates/bluthdigital.com.cer
+
+extensions=ic
+.include = ${ENV::EXTENSION_FILE}
+

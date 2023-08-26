@@ -1,0 +1,7 @@
+
+authority = bluthdigital.com/bluthdigital.com
+source = biffgroup.com/bridge.biffgroup.com
+AIA = https://pki.bluthdigital.com/certificates/bluthdigital.com.cer
+extensions=ic
+.include = ${ENV::EXTENSION_FILE}
+
