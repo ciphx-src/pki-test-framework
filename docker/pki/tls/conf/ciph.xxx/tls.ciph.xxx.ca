@@ -1,8 +1,0 @@
-
-password = password-ca.txt
-
-SAN = DNS:tls.ciph.xxx
-
-extensions=ca
-.include = ${ENV::EXTENSION_FILE}
-
