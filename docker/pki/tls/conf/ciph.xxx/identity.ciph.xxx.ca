@@ -1,0 +1,10 @@
+
+password = password.txt
+
+authority = ciph.xxx/tls.ciph.xxx
+
+SAN = DNS:identity.ciph.xxx
+
+extensions=pkc
+.include = ${ENV::EXTENSION_FILE}
+
