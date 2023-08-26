@@ -13,10 +13,7 @@ TEST_DIR := tests
 INSTALL_DIR_CERT := pki
 INSTALL_DIR_KEY := key
 
-ifndef AIA_SUBDOMAN
-	AIA_SUBDOMAN := pki.
-endif
-export AIA_SUBDOMAN
+export AIA_SUBDOMAN=identity.
 
 EXTENSION_FILE := $(realpath extensions.conf)
 

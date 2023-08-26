@@ -1,4 +1,4 @@
-FROM alpine:3.16.2 as builder
+FROM alpine:3.16.2 as pki
 
 ARG AIA_SUBDOMAN
 
@@ -22,3 +22,14 @@ COPY pki/tls/extensions.conf .
 
 RUN --mount=type=secret,id=password,dst=password.txt --mount=type=secret,id=password-ca,dst=password-ca.txt make clean install
 
+FROM alpine:3.15.4
+
+WORKDIR /
+
+COPY --from=pki /identity /identity
+COPY --from=pki /tls /tls
+
+COPY pki.sh .
+RUN chmod 700 /pki.sh
+
+ENTRYPOINT /pki.sh
