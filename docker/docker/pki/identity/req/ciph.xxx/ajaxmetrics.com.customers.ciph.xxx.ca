@@ -1,0 +1,7 @@
+authority = ciph.xxx/customers.ciph.xxx
+
+AIA = https://${ENV::AIA_SUBDOMAN}ciph.xxx/certificates/customers.ciph.xxx.cer
+
+extensions=pkc
+.include = ${ENV::EXTENSION_FILE}
+

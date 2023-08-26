@@ -1,0 +1,8 @@
+authority = cogswelldata.com/cogswelldata.com
+
+
+AIA = https://${ENV::AIA_SUBDOMAN}cogswelldata.com/certificates/cogswelldata.com.cer
+
+extensions=ic
+.include = ${ENV::EXTENSION_FILE}
+
