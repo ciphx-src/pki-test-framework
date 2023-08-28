@@ -1,5 +1,6 @@
 FROM alpine:3.16.2 as builder
 
+ARG EXPIRES=
 ARG AIA_URL_SERVER_PORT
 
 RUN apk update 
@@ -13,7 +14,7 @@ COPY identity/req req
 COPY identity/extensions.conf .
 COPY identity/tests tests
 
-RUN AIA_URL_SERVER_PORT=$AIA_URL_SERVER_PORT make clean install tests
+RUN EXPIRES=${EXPIRES} AIA_URL_SERVER_PORT=${AIA_URL_SERVER_PORT} make clean install tests
 
 RUN tar cvzf identity.tar.gz identity
 RUN mv identity.tar.gz identity/ciph.xxx
@@ -24,7 +25,7 @@ COPY tls/Makefile .
 COPY tls/conf conf
 COPY tls/extensions.conf .
 
-RUN --mount=type=secret,id=tls-password,required --mount=type=secret,id=tls-ca-password,required  PASSWORD_PATH=/run/secrets/ make clean install
+RUN --mount=type=secret,id=tls-password,required --mount=type=secret,id=tls-ca-password,required EXPIRES=${EXPIRES} PASSWORD_PATH=/run/secrets/ make clean install
 
 WORKDIR /server
 

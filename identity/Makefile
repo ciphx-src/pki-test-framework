@@ -11,9 +11,12 @@ KEY_DIR := $(BUILD_DIR)
 TEST_DIR := tests
 INSTALL_DIR_CERT := identity
 INSTALL_DIR_KEY := key
+ifndef EXPIRES
+$(error EXPIRES is undefined YYYYmmdd)
+endif
+DAYS := $(shell echo $$((  (  $$(date  -D "%m%d%Y" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
 
 EXTENSION_FILE := $(realpath extensions.conf)
-
 export EXTENSION_FILE
 
 .PRECIOUS: $(KEY_DIR)/%.key $(CERT_DIR)/%.cer $(CERT_DIR)/%.pem $(CERT_DIR)/%.chain
@@ -29,13 +32,14 @@ $(CERT_DIR)/%.req: $(REQ_DIR)/%.conf $(EXTENSION_FILE) $(KEY_DIR)/%.key
 	$(OPENSSL) req -new -config $< -keyform der -key $(word 3,$^) -out $@
 
 $(CERT_DIR)/%.cer: $(CERT_DIR)/%.req $(REQ_DIR)/%.ca
+	echo -e "days $(DAYS)\n\n\n\n\n"
 	$(call parse_config,$(word 2,$^))
 	mkdir -p $(dir $@)
 	if [ $(authority) ]; then \
 		$(MAKE) $(CERT_DIR)/$(authority).pem ; \
-		$(OPENSSL) x509 -req -days 1 -CAcreateserial -outform der -extfile $(word 2,$^) -CAform der -CAkeyform der -CA $(CERT_DIR)/$(authority).cer -CAkey $(KEY_DIR)/$(authority).key -in $< -out $@ ; \
+		$(OPENSSL) x509 -req -days $(DAYS) -CAcreateserial -outform der -extfile $(word 2,$^) -CAform der -CAkeyform der -CA $(CERT_DIR)/$(authority).cer -CAkey $(KEY_DIR)/$(authority).key -in $< -out $@ ; \
 	else \
-		$(OPENSSL) x509 -req -days 1 -CAcreateserial -outform der -extfile $(word 2,$^) -keyform der -signkey $(basename $(@:$(CERT_DIR)/%=$(KEY_DIR)/%)).key -in $< -out $@ ; \
+		$(OPENSSL) x509 -req -days $(DAYS) -CAcreateserial -outform der -extfile $(word 2,$^) -keyform der -signkey $(basename $(@:$(CERT_DIR)/%=$(KEY_DIR)/%)).key -in $< -out $@ ; \
 	fi;
 
 $(CERT_DIR)/%.pem: $(CERT_DIR)/%.cer
@@ -51,7 +55,7 @@ $(CERT_DIR)/%.crossreq: $(KEY_DIR)/%.key
 $(CERT_DIR)/%.cross: $(CERT_DIR)/%.crossreq $(CERT_DIR)/$(SRC).pubkey $(EXTENSION_FILE)
 	echo CA: $(CA) > $@
 	echo SRC: $(SRC) >> $@
-	$(OPENSSL) x509 -req -days 1 -CAcreateserial -outform der -extfile $(CROSS) -CAform der -CAkeyform der -CA $(CERT_DIR)/$(CA).cer -CAkey $(KEY_DIR)/$(CA).key -in $< -force_pubkey $(word 2,$^) -out $(@:%.cross=%.cer)
+	$(OPENSSL) x509 -req -days $(DAYS) -CAcreateserial -outform der -extfile $(CROSS) -CAform der -CAkeyform der -CA $(CERT_DIR)/$(CA).cer -CAkey $(KEY_DIR)/$(CA).key -in $< -force_pubkey $(word 2,$^) -out $(@:%.cross=%.cer)
 	$(OPENSSL) x509 -inform der -in $(@:%.cross=%.cer) -outform pem -out $(@:%.cross=%.pem)
 
 $(CERT_DIR)/%.chain: $(CERT_DIR)/%.pem

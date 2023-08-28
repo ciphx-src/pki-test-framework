@@ -11,9 +11,12 @@ KEY_DIR := $(BUILD_DIR)
 TEST_DIR := tests
 INSTALL_DIR_CERT := tls
 INSTALL_DIR_KEY := tls
+ifndef EXPIRES
+$(error EXPIRES is undefined YYYYmmdd)
+endif
+DAYS := $(shell echo $$((  (  $$(date  -D "%Y%m%d" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
 
 EXTENSION_FILE := $(realpath extensions.conf)
-
 export EXTENSION_FILE
 
 .PRECIOUS: $(KEY_DIR)/%.key $(CERT_DIR)/%.cer $(CERT_DIR)/%.pem $(CERT_DIR)/%.chain
@@ -37,9 +40,9 @@ $(CERT_DIR)/%.cer: $(CERT_DIR)/%.req $(REQ_DIR)/%.ca
 	mkdir -p $(dir $@)
 	if [ $(ca_authority) ]; then \
 		$(MAKE) $(CERT_DIR)/$(ca_authority).pem ; \
-		$(OPENSSL) x509 -req -days 1 -CAcreateserial -outform der -extfile $(word 2,$^) -CAform der -CAkeyform pem -CA $(CERT_DIR)/$(ca_authority).cer -CAkey $(KEY_DIR)/$(ca_authority).key -passin file:$(PASSWORD_PATH)$(password) -in $< -out $@ ; \
+		$(OPENSSL) x509 -req -days $(DAYS) -CAcreateserial -outform der -extfile $(word 2,$^) -CAform der -CAkeyform pem -CA $(CERT_DIR)/$(ca_authority).cer -CAkey $(KEY_DIR)/$(ca_authority).key -passin file:$(PASSWORD_PATH)$(password) -in $< -out $@ ; \
 	else \
-		$(OPENSSL) x509 -req -days 1 -CAcreateserial -outform der -extfile $(word 2,$^) -keyform pem -signkey $(basename $(@:$(CERT_DIR)/%=$(KEY_DIR)/%)).key -passin file:$(PASSWORD_PATH)$(password) -in $< -out $@ ; \
+		$(OPENSSL) x509 -req -days $(DAYS) -CAcreateserial -outform der -extfile $(word 2,$^) -keyform pem -signkey $(basename $(@:$(CERT_DIR)/%=$(KEY_DIR)/%)).key -passin file:$(PASSWORD_PATH)$(password) -in $< -out $@ ; \
 	fi;
 
 $(CERT_DIR)/%.pem: $(CERT_DIR)/%.cer
