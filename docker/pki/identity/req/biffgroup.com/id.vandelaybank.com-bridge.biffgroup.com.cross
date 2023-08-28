@@ -1,7 +1,7 @@
 
 authority = biffgroup.com/bridge.biffgroup.com
 source = vandelaybank.com/id.vandelaybank.com
-AIA = https://pki.biffgroup.com/certificates/bridge.biffgroup.com.cer
+AIA = https://${ENV::AIA_SUBDOMAN}biffgroup.com${ENV::AIA_PORT}/certificates/bridge.biffgroup.com.cer
 extensions=ic
 .include = ${ENV::EXTENSION_FILE}
 

@@ -1,6 +1,6 @@
 authority = ciph.xxx/customers.ciph.xxx
 
-AIA = https://${ENV::AIA_SUBDOMAN}ciph.xxx/certificates/customers.ciph.xxx.cer
+AIA = https://${ENV::AIA_SUBDOMAN}ciph.xxx${ENV::AIA_PORT}/certificates/customers.ciph.xxx.cer
 
 extensions=pkc
 .include = ${ENV::EXTENSION_FILE}
