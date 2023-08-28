@@ -39,5 +39,7 @@ RUN rm -fr /etc/nginx/conf.d
 COPY --from=builder /server/nginx /etc/nginx/conf.d
 COPY --from=builder /identity/pki /var/pki
 COPY --from=builder /tls/tls /etc/nginx/tls
-COPY --from=builder /tls/tls/ciph.xxx/tls.ciph.xxx.pem /var/pki/ciph.xxx/root.pem
 COPY server/mime.types /etc/nginx/mime.types
+COPY server/root.sh /root.sh
+
+RUN chmod 755 /root.sh
