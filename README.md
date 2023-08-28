@@ -1,27 +1,41 @@
-# X509 Test Framework
+# PKI Test Framework
 
+PKI Test Framework is a dockerized test PKI generator, with a built-in HTTP/S certificate server.
 
-* Generate PKI identities
-* Generate server TLS certificates and keys
-* Build http server
-* Launch the server
+## Synopsis
 
-```` shell
-docker run --rm --env-file password-local.env -p 127.0.0.1:8080:80 -p 127.0.0.1:4443:443 $(docker build -q --secret id=password,src=password.txt --secret id=password-ca,src=password.txt docker)
+PKI Test Framework has three components:
 
-````
+1. PKI identity tree generator
+2. TLS authority generator
+3. Certificate web server
 
-Bootstrap TLS root
+## Usage
 
-```` shell
-curl 'http://identity.ciph.xxx:8080/root.pem' > root.pem
-````
+Clone from Github:
+``` shell
+git clone xxx
+cd xxx
+```
 
-Install PKI identities
+Build and run:
+``` shell
+docker compose build
+docker compose up   
+```
 
-```` shell
+Bootstrap root TLS:
+``` shell
+docker compose exec identity /root.sh -t > root.pem
+```
+
+Download a certificate
+``` shell
+ curl --cacert root.pem https://identity.vandelaybank.com:4443/kim@id.vandelaybank.com.pem
+```
+
+Install PKI identities locally:
+``` shell
  curl --cacert root.pem https://identity.ciph.xxx:4443/identity.tar.gz > identity.tar.gz
-
 tar fxzv identity.tar.gz
-````
-
+```
