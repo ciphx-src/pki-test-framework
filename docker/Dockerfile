@@ -6,10 +6,10 @@ RUN apk add m4
 
 WORKDIR /identity
 
-COPY pki/identity/Makefile .
-COPY pki/identity/req req
-COPY pki/identity/extensions.conf .
-COPY pki/identity/tests tests
+COPY identity/Makefile .
+COPY identity/req req
+COPY identity/extensions.conf .
+COPY identity/tests tests
 
 RUN make clean install tests
 
@@ -18,9 +18,9 @@ RUN mv identity.tar.gz pki/ciph.xxx
 
 WORKDIR /tls
 
-COPY pki/tls/Makefile .
-COPY pki/tls/conf conf
-COPY pki/tls/extensions.conf .
+COPY tls/Makefile .
+COPY tls/conf conf
+COPY tls/extensions.conf .
 
 RUN --mount=type=secret,id=password,dst=password.txt --mount=type=secret,id=password-ca,dst=password-ca.txt make clean install
 
