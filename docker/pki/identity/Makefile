@@ -1,5 +1,4 @@
 OPENSSL := openssl
-GIT := git
 
 define parse_config
 $(foreach pair,$(shell grep = $(1) | sed -e 's/#.*//g' -e 's/^[ \t]*//' -e 's/[ \t]*=/:=/' -e 's/=[ \t]*/=/' -e 's/ /___space___/g'),$(eval $(subst ___space___, ,$(pair))))
@@ -14,6 +13,7 @@ INSTALL_DIR_CERT := pki
 INSTALL_DIR_KEY := key
 
 export AIA_SUBDOMAN=identity.
+export AIA_PORT=:4443
 
 EXTENSION_FILE := $(realpath extensions.conf)
 

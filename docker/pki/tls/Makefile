@@ -1,5 +1,4 @@
 OPENSSL := openssl
-GIT := git
 
 define parse_config
 $(foreach pair,$(shell grep = $(1) | sed -e 's/#.*//g' -e 's/^[ \t]*//' -e 's/[ \t]*=/:=/' -e 's/=[ \t]*/=/' -e 's/ /___space___/g'),$(eval $(subst ___space___, ,$(pair))))
