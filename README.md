@@ -1,24 +1,27 @@
 # X509 Test Framework
 
 
-Generate PKI and TLS certificates and key pairs
+* Generate PKI identities
+* Generate server TLS certificates and keys
+* Build http server
+* Launch the server
 
 ```` shell
-export SERVER_KEY_PASSWORD=$PWD/password.txt
-export CA_ROOT_PASSWORD=$PWD/ca-password.txt
+docker run --rm --env-file password-local.env -p 127.0.0.1:8080:80 -p 127.0.0.1:4443:443 $(docker build -q --secret id=password,src=password.txt --secret id=password-ca,src=password.txt docker)
 
-rm -fr $PWD/docker/material
-
-docker run --rm -v $PWD/docker/material:/dest $(docker build --secret id=password,src=$PWD/docker/password.txt --secret id=password-ca,src=$PWD/docker/password-ca.txt -f $PWD/docker/material.Dockerfile -q $PWD/docker)
 ````
 
-Build and launch the server
+Bootstrap TLS root
 
 ```` shell
-export FRAMEWORK_MATERIAL=$PWD/target/tmp/material
-
-rm -fr $PWD/docker/server/material
-cp -r $FRAMEWORK_MATERIAL $PWD/docker/server/material
-
-
+curl 'http://identity.ciph.xxx:8080/root.pem' > root.pem
 ````
+
+Install PKI identities
+
+```` shell
+ curl --cacert root.pem https://identity.ciph.xxx:4443/identity.tar.gz > identity.tar.gz
+
+tar fxzv identity.tar.gz
+````
+
