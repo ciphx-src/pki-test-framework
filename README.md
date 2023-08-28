@@ -31,11 +31,13 @@ docker compose exec identity /root.sh -t > root.pem
 
 Download a certificate
 ``` shell
- curl --cacert root.pem https://identity.vandelaybank.com:4443/kim@id.vandelaybank.com.pem
+ curl --cacert root.pem https://identity.vandelaybank.com:4443/certificates/kim@id.vandelaybank.com.pem
 ```
 
 Install PKI identities locally:
 ``` shell
- curl --cacert root.pem https://identity.ciph.xxx:4443/identity.tar.gz > identity.tar.gz
-tar fxzv identity.tar.gz
+mkdir -p target
+cd target
+ curl --cacert ../root.pem https://identity.ciph.xxx:4443/certificates/identity.tar.gz |
+tar xzv -
 ```

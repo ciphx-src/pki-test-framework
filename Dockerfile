@@ -8,15 +8,15 @@ RUN apk add m4
 
 WORKDIR /identity
 
-COPY pki/Makefile .
-COPY pki/req req
-COPY pki/extensions.conf .
-COPY pki/tests tests
+COPY identity/Makefile .
+COPY identity/req req
+COPY identity/extensions.conf .
+COPY identity/tests tests
 
 RUN AIA_URL_SERVER_PORT=$AIA_URL_SERVER_PORT make clean install tests
 
-RUN tar cvzf identity.tar.gz pki
-RUN mv identity.tar.gz pki/ciph.xxx
+RUN tar cvzf identity.tar.gz identity
+RUN mv identity.tar.gz identity/ciph.xxx
 
 WORKDIR /tls
 
@@ -37,7 +37,7 @@ FROM nginx:1.21.6-alpine
 
 RUN rm -fr /etc/nginx/conf.d
 COPY --from=builder /server/nginx /etc/nginx/conf.d
-COPY --from=builder /identity/pki /var/pki
+COPY --from=builder /identity/identity /var/identity
 COPY --from=builder /tls/tls /etc/nginx/tls
 COPY server/mime.types /etc/nginx/mime.types
 COPY server/root.sh /root.sh

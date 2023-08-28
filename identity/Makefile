@@ -9,7 +9,7 @@ BUILD_DIR := target
 CERT_DIR := $(BUILD_DIR)
 KEY_DIR := $(BUILD_DIR)
 TEST_DIR := tests
-INSTALL_DIR_CERT := pki
+INSTALL_DIR_CERT := identity
 INSTALL_DIR_KEY := key
 
 EXTENSION_FILE := $(realpath extensions.conf)
