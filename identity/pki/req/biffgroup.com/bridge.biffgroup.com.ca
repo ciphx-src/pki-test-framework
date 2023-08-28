@@ -1,0 +1,8 @@
+
+authority = biffgroup.com/biffgroup.com
+
+AIA = https://identity.biffgroup.com${ENV::AIA_URL_SERVER_PORT}/certificates/biffgroup.com.cer
+
+extensions=ic
+.include = ${ENV::EXTENSION_FILE}
+

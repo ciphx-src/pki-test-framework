@@ -1,0 +1,8 @@
+
+password = tls-ca-password
+
+SAN = DNS:tls.ciph.xxx
+
+extensions=ca
+.include = ${ENV::EXTENSION_FILE}
+

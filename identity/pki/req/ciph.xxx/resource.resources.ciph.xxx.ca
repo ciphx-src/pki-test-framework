@@ -1,0 +1,7 @@
+authority = ciph.xxx/resources.ciph.xxx
+
+AIA = https://identity.ciph.xxx${ENV::AIA_URL_SERVER_PORT}/certificates/resources.ciph.xxx.cer
+
+extensions=ic
+.include = ${ENV::EXTENSION_FILE}
+

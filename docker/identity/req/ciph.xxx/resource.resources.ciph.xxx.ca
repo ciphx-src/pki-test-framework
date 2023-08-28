@@ -1,7 +1,0 @@
-authority = ciph.xxx/resources.ciph.xxx
-
-AIA = https://${ENV::AIA_SUBDOMAN}ciph.xxx${ENV::AIA_PORT}/certificates/resources.ciph.xxx.cer
-
-extensions=ic
-.include = ${ENV::EXTENSION_FILE}
-

@@ -3,15 +3,8 @@ use std::io::ErrorKind;
 use std::net::Ipv4Addr;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command};
-use std::str::from_utf8;
 
-use lazy_static::lazy_static;
-use std::sync::{Arc, Mutex};
 
-lazy_static! {
-    static ref IDENTITY_SERVER_INNER: Arc<Mutex<Option<IdentityServerInner>>> =
-        Arc::new(Mutex::new(None));
-}
 
 pub fn start(password: String, host: Ipv4Addr, port: usize, port_ssl: usize) -> io::Result<()> {
     if let Ok(mut server) = IDENTITY_SERVER_INNER.lock() {

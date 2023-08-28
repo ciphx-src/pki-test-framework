@@ -1,7 +1,0 @@
-
-authority = bluthdigital.com/bluthdigital.com
-source = biffgroup.com/bridge.biffgroup.com
-AIA = https://${ENV::AIA_SUBDOMAN}bluthdigital.com${ENV::AIA_PORT}/certificates/bluthdigital.com.cer
-extensions=ic
-.include = ${ENV::EXTENSION_FILE}
-
