@@ -1,7 +1,0 @@
-authority = bluthdigital.com/id.bluthdigital.com
-
-AIA = https://${ENV::AIA_SUBDOMAN}bluthdigital.com/certificates/id.bluthdigital.com.cer
-
-extensions=pkc
-.include = ${ENV::EXTENSION_FILE}
-

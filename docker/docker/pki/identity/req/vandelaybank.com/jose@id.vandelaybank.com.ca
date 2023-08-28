@@ -1,8 +1,0 @@
-authority = vandelaybank.com/id.vandelaybank.com
-
-
-AIA = https://${ENV::AIA_SUBDOMAN}vandelaybank.com/certificates/id.vandelaybank.com.cer
-
-extensions=pkc
-.include = ${ENV::EXTENSION_FILE}
-
