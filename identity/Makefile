@@ -14,7 +14,7 @@ INSTALL_DIR_KEY := key
 ifndef EXPIRES
 $(error EXPIRES is undefined yyyymmdd)
 endif
-DAYS := $(shell echo $$((  (  $$(date  -D "%m%d%Y" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
+DAYS := $(shell echo $$((  (  $$(date  -D "%Y%m%d" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
 
 EXTENSION_FILE := $(realpath extensions.conf)
 export EXTENSION_FILE

@@ -1,8 +1,0 @@
-authority = cogswelldata.com/cogswelldata.com
-
-
-AIA = https://identity.cogswelldata.com{ENV::AIA_URL_SERVER_PORT}/certificates/cogswelldata.com.cer
-
-extensions=ic
-.include = ${ENV::EXTENSION_FILE}
-
