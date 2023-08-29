@@ -1,0 +1,45 @@
+@startuml
+skinparam dpi 100
+
+skinparam class {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam object {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam classAttributeIconSize 0
+
+class bluthdigital_com as "bluthdigital.com" << (A,transparent) >> #pink {
+  • issuer
+  • subject
+}
+
+class id_bluthdigital_com as "id.bluthdigital.com" << (I,transparent) >> #yellow {
+  • issuer
+  • subject
+}
+
+class alice_id_bluthdigital_com as "alice@id.bluthdigital.com" << (E,transparent) >> #lightgreen {
+  • issuer
+  • subject
+}
+
+class bob_id_bluthdigital_com as "bob@id.bluthdigital.com" << (E,transparent) >> #lightgreen {
+  • issuer
+  • subject
+}
+
+bluthdigital_com::issuer -> bluthdigital_com::subject
+
+id_bluthdigital_com::issuer ---up> bluthdigital_com::subject
+
+alice_id_bluthdigital_com::issuer ---up> id_bluthdigital_com::subject
+bob_id_bluthdigital_com::issuer ---up> id_bluthdigital_com::subject
+
+@enduml
