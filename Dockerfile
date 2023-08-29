@@ -14,9 +14,10 @@ COPY identity/req req
 COPY identity/extensions.conf .
 COPY identity/tests tests
 
-RUN EXPIRES=${EXPIRES} AIA_URL_SERVER_PORT=${AIA_URL_SERVER_PORT} make clean install tests
+RUN EXPIRES=${EXPIRES} AIA_URL_SERVER_PORT=${AIA_URL_SERVER_PORT} make clean install test
 
 RUN tar cvzf identity.tar.gz identity
+RUN mkdir identity/ciph.xxx
 RUN mv identity.tar.gz identity/ciph.xxx
 
 WORKDIR /tls
