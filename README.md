@@ -51,6 +51,16 @@ The `tls-password.txt` and `tls-ca-password.txt` files hold the passwords for en
 
 ## Identity
 
+PKI Test Framework build the following fictional organizations:
+
+* ajaxmetrics.com
+* biffgroup.com
+* bluthdigital.com
+* cogswelldata.com
+* vandelaybank.com
+
+
+
 #### Certificate Encoding Formats
 
 Each identity certificate is encoded in the following formats, which can be identified by the filename extension:
