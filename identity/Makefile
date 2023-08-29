@@ -12,7 +12,7 @@ TEST_DIR := tests
 INSTALL_DIR_CERT := identity
 INSTALL_DIR_KEY := key
 ifndef EXPIRES
-$(error EXPIRES is undefined YYYYmmdd)
+$(error EXPIRES is undefined yyyymmdd)
 endif
 DAYS := $(shell echo $$((  (  $$(date  -D "%m%d%Y" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
 

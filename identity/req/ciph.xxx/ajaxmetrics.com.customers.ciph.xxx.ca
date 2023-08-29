@@ -1,7 +1,0 @@
-authority = ciph.xxx/customers.ciph.xxx
-
-AIA = https://identity.ciph.xxx${ENV::AIA_URL_SERVER_PORT}/certificates/customers.ciph.xxx.cer
-
-extensions=pkc
-.include = ${ENV::EXTENSION_FILE}
-
