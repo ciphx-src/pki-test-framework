@@ -16,6 +16,7 @@ $(error EXPIRES is undefined yyyymmdd)
 endif
 DAYS := $(shell echo $$((  (  $$(date  -D "%Y%m%d" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
 
+
 EXTENSION_FILE := $(realpath extensions.conf)
 export EXTENSION_FILE
 
@@ -32,7 +33,6 @@ $(CERT_DIR)/%.req: $(REQ_DIR)/%.conf $(EXTENSION_FILE) $(KEY_DIR)/%.key
 	$(OPENSSL) req -new -config $< -keyform der -key $(word 3,$^) -out $@
 
 $(CERT_DIR)/%.cer: $(CERT_DIR)/%.req $(REQ_DIR)/%.ca
-	echo -e "days $(DAYS)\n\n\n\n\n"
 	$(call parse_config,$(word 2,$^))
 	mkdir -p $(dir $@)
 	if [ $(authority) ]; then \
@@ -92,7 +92,7 @@ certs:
 test:
 	$(foreach conf, $(wildcard $(TEST_DIR)/*.conf), \
 		$(call parse_config,$(conf)) \
-		$(OPENSSL) verify -show_chain -verbose -x509_strict -CAfile $(CERT_DIR)/$(CA).pem $(foreach untrusted, $(IC), -untrusted $(CERT_DIR)/$(untrusted).pem) $(CERT_DIR)/$(PKC).pem || exit ; \
+		$(OPENSSL) verify -show_chain -verbose -x509_strict -CAfile $(CERT_DIR)/$(CA).pem $(foreach untrusted, $(IC), -untrusted $(CERT_DIR)/$(untrusted).pem) $(CERT_DIR)/$(PKC).pem || exit 1 ; \
 	)
 
 install: certs
