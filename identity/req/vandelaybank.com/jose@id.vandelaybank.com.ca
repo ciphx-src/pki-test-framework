@@ -1,7 +1,7 @@
 authority = vandelaybank.com/id.vandelaybank.com
 
 
-AIA = https://identity.vandelaybank.com{ENV::AIA_URL_SERVER_PORT}/certificates/id.vandelaybank.com.cer
+AIA = https://identity.vandelaybank.com${ENV::AIA_URL_SERVER_PORT}/certificates/id.vandelaybank.com.cer
 
 extensions=pkc
 .include = ${ENV::EXTENSION_FILE}
