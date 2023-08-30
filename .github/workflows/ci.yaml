@@ -23,9 +23,8 @@ jobs:
       - name: test
         run: |
           docker compose exec identity /root.sh -t > root.pem 
-          curl --cacert root.pem https://identity.vandelaybank.com:4443/certificates/kim@id.vandelaybank.com.pem > kim@id.vandelaybank.com.pem 
-          openssl x509 -in kim@id.vandelaybank.com.pem -text
-          openssl x509 -in kim@id.vandelaybank.com.pem -outform der > /dev/null 
+          curl --cacert root.pem https://identity.vandelaybank.com:4443/certificates/kim@id.vandelaybank.com.pem | openssl x509 -in kim@id.vandelaybank.com.pem -text
+ 
 
       - name: down
         run: |
