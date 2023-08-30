@@ -12,8 +12,8 @@ On build, PKI Test Framework will generate a multi-organization PKI identity tre
 
 Clone from GitHub:
 ``` shell
-git clone https://github.com/merlincinematic/x509-test-framework.git
-cd x509-test-framework
+git clone https://github.com/merlincinematic/pki-test-framework.git
+cd pki-test-framework
 ```
 
 Build and run:
