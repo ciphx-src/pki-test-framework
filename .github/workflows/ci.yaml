@@ -16,3 +16,17 @@ jobs:
         run: |
           docker compose build --build-arg "EXPIRES=29990101"
 
+      - name: up
+        run: |
+          docker compose up --detach --wait --wait-timeout 5
+
+      - name: test
+        run: |
+          docker compose exec identity /root.sh -t > root.pem 
+          curl --cacert root.pem https://identity.vandelaybank.com:4443/certificates/kim@id.vandelaybank.com.pem > kim@id.vandelaybank.com.pem 
+          openssl x509 -text -in kim@id.vandelaybank.com.pem -outform der > /dev/null 
+
+      - name: down
+        run: |
+          docker compose down -t 5
+
