@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          docker compose build --build-arg "EXPIRES=29990101"
+
+      - name: up
+        run: |
+          docker compose up --detach --wait --wait-timeout 5
+
+      - name: test
+        run: |
+          docker compose exec identity /root.sh -t > root.pem 
+          curl --cacert root.pem https://identity.vandelaybank.com:4443/certificates/kim@id.vandelaybank.com.pem | openssl x509 -text
+ 
+
+      - name: down
+        run: |
+          docker compose down -t 5
+

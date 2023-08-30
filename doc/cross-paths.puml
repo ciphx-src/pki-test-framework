@@ -1,0 +1,17 @@
+@startuml
+skinparam dpi 150
+
+:alice@id.bluthdigital.com;
+if (bridge certificate found?) then (yes)
+:id.bluthdigital.com
+(cross signed by biffgroup.com);
+:bridge.biffgroup.com
+(cross signed by vandelaybank.com);
+:vandelaybank.com;
+stop;
+else (no)
+:id.bluthdigital.com;
+:bluthdigital.com;
+stop;
+endif
+@enduml

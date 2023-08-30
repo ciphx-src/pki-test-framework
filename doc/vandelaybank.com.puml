@@ -1,0 +1,45 @@
+@startuml
+skinparam dpi 100
+
+skinparam class {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam object {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam classAttributeIconSize 0
+
+class vandelaybank_com as "vandelaybank.com" << (A,transparent) >> #pink {
+  • issuer
+  • subject
+}
+
+class id_vandelaybank_com as "id.vandelaybank.com" << (I,transparent) >> #yellow {
+  • issuer
+  • subject
+}
+
+class jose_id_vandelaybank_com as "jose@id.vandelaybank.com" << (E,transparent) >> #lightgreen {
+  • issuer
+  • subject
+}
+
+class kim_id_vandelaybank_com as "kim@id.vandelaybank.com" << (E,transparent) >> #lightgreen {
+  • issuer
+  • subject
+}
+
+vandelaybank_com::issuer -> vandelaybank_com::subject
+
+id_vandelaybank_com::issuer ---up> vandelaybank_com::subject
+
+jose_id_vandelaybank_com::issuer ---up> id_vandelaybank_com::subject
+kim_id_vandelaybank_com::issuer ---up> id_vandelaybank_com::subject
+
+@enduml

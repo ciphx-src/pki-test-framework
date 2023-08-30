@@ -1,0 +1,98 @@
+@startuml
+skinparam dpi 100
+
+skinparam class {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam object {
+BackgroundColor transparent
+ArrowColor black
+BorderColor black
+}
+
+skinparam classAttributeIconSize 0
+
+class biffgroup_com as "biffgroup.com" << (A,transparent) >> #pink {
+  • issuer
+  • subject
+}
+
+class bridge_biffgroup_com as "bridge.biffgroup.com" << (I,transparent) >> #yellow {
+  • issuer
+  • subject
+}
+
+class bluthdigital_com as "bluthdigital.com" << (A,transparent) >> #pink {
+  • issuer
+  • subject
+}
+
+class bridge_biffgroup_com_bluthdigital_com as "bridge.biffgroup.com" << (X,transparent) >> #lightblue {
+  • issuer
+  • subject
+}
+
+class id_bluthdigital_com as "id.bluthdigital.com" << (I,transparent) >> #yellow {
+  • issuer
+  • subject
+}
+
+class id_bluthdigital_com_x_bridge_biffgroup_com as "id.bluthdigital.com" << (X,transparent) >> #lightblue {
+  • issuer
+  • subject
+}
+
+class vandelaybank_com as "vandelaybank.com" << (A,transparent) >> #pink {
+  • issuer
+  • subject
+}
+
+class bridge_biffgroup_com_vandelaybank_com as "bridge.biffgroup.com" << (X,transparent) >> #lightblue {
+  • issuer
+  • subject
+}
+
+class id_vandelaybank_com as "id.vandelaybank.com" << (I,transparent) >> #yellow {
+  • issuer
+  • subject
+}
+
+class id_vandelaybank_com_x_bridge_biffgroup_com as "id.vandelaybank.com" << (X,transparent) >> #lightblue {
+  • issuer
+  • subject
+}
+
+biffgroup_com::issuer -> biffgroup_com::subject
+bluthdigital_com::issuer -> bluthdigital_com::subject
+
+bridge_biffgroup_com::issuer ---up> biffgroup_com::subject
+
+bridge_biffgroup_com_bluthdigital_com::issuer ---up> bluthdigital_com::subject
+
+bridge_biffgroup_com_bluthdigital_com <...up> bridge_biffgroup_com : cross-signed
+
+id_bluthdigital_com::issuer ---up> bluthdigital_com::subject
+
+id_bluthdigital_com_x_bridge_biffgroup_com::issuer ---up> bridge_biffgroup_com::subject
+
+id_bluthdigital_com_x_bridge_biffgroup_com <...up> id_bluthdigital_com : cross-signed
+
+
+vandelaybank_com::issuer -> vandelaybank_com::subject
+
+
+bridge_biffgroup_com_vandelaybank_com::issuer ---up> vandelaybank_com::subject
+
+bridge_biffgroup_com_vandelaybank_com <...up> bridge_biffgroup_com : cross-signed
+
+id_vandelaybank_com::issuer ---up> vandelaybank_com::subject
+
+id_vandelaybank_com_x_bridge_biffgroup_com::issuer ---up> bridge_biffgroup_com::subject
+
+id_vandelaybank_com_x_bridge_biffgroup_com <...up> id_vandelaybank_com : cross-signed
+
+
+@enduml

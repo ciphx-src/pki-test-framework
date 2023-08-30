@@ -1,0 +1,22 @@
+services:
+  identity:
+    build:
+      secrets:
+        - tls-password
+        - tls-ca-password
+      args:
+        AIA_URL_SERVER_PORT: :4443
+
+    ports:
+      - "8080:80"
+      - "4443:443"
+
+    secrets:
+      - tls-password
+      - tls-ca-password
+
+secrets:
+  tls-password:
+    file: ./tls-password.txt
+  tls-ca-password:
+    file: ./tls-ca-password.txt
