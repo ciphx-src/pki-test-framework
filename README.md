@@ -4,13 +4,13 @@ PKI Test Framework is a dockerized test PKI generator, with a built-in HTTP/S ce
 
 ## Synopsis
 
-PKI Test Framework is designed to produce X509 material useful for CICD integration testing.
+PKI Test Framework is designed to produce X509 material useful for CI/CD integration testing.
 
-On build, PKI Test Framework will generate a multi-organization PKI identity tree, then launch a web server to serve the certificates. The certificate are available over HTTPS, so TLS certificates are generated as well.
+On build, PKI Test Framework will generate a multi-organization PKI identity tree, then launch a web server to serve the certificates. The certificates are available over HTTPS, so TLS certificates are generated as well.
 
 ## Usage
 
-Clone from Github:
+Clone from GitHub:
 ``` shell
 git clone https://github.com/merlincinematic/x509-test-framework.git
 cd x509-test-framework
