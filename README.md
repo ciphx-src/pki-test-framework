@@ -2,6 +2,8 @@
 
 PKI Test Framework is a dockerized test PKI generator, with a built-in HTTP/S certificate server.
 
+![CI Status](https://github.com/merlincinematic/pki-test-framework/actions/workflows/ci.yaml/badge.svg)
+
 ## Synopsis
 
 PKI Test Framework is designed to produce X509 material useful for CI/CD integration testing.
