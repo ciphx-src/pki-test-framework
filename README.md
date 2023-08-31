@@ -2,6 +2,8 @@
 
 PKI Test Framework is a dockerized test PKI generator, with a built-in HTTP/S certificate server.
 
+![CI Status](https://github.com/merlincinematic/pki-test-framework/actions/workflows/ci.yaml/badge.svg)
+
 ## Synopsis
 
 PKI Test Framework is designed to produce X509 material useful for CI/CD integration testing.
@@ -18,7 +20,7 @@ cd pki-test-framework
 
 Build and run:
 ``` shell
-docker compose build --build-arg "EXPIRES=yyyymmdd"
+docker compose build --no-cache --build-arg "DAYS=300"
 docker compose up   
 ```
 
@@ -45,7 +47,9 @@ tar xzv -
 #### Build Arguments
 
 * `AIA_URL_SERVER_PORT` - when generating the PKI identity tree, use this port for [AIA](https://datatracker.ietf.org/doc/html/rfc5280#section-5.2.7) URLs. It should match the port the certificate server is running on.
-* `EXPIRES` - sets the expiration validity date on all certificates. Argument is required, and has no default. The [CA/Browser Forum](https://cabforum.org/wp-content/uploads/CA-Browser-Forum-BR-1.8.1.pdf) recommends that TLS certificates expire after 398 days. As a result of the recommendation, most browsers will reject certificates with a longer lifespan.
+* `DAYS` - sets the expiration validity date n days from the current time, for all certificates. Defaults to 300. The [CA/Browser Forum](https://cabforum.org/wp-content/uploads/CA-Browser-Forum-BR-1.8.1.pdf) recommends that TLS certificates expire after 398 days. As a result of the recommendation, most browsers will reject certificates with a longer lifespan.
+
+The `DAYS` build argument is relative, so building with `--no-cache` is recommended if images are not tagged. Otherwise, a version of the image with expired certificates will be pulled from the Docker cache.
 
 #### Secrets
 

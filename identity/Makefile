@@ -11,11 +11,9 @@ KEY_DIR := $(BUILD_DIR)
 TEST_DIR := tests
 INSTALL_DIR_CERT := identity
 INSTALL_DIR_KEY := key
-ifndef EXPIRES
-$(error EXPIRES is undefined yyyymmdd)
+ifndef DAYS
+DAYS := 300
 endif
-DAYS := $(shell echo $$((  (  $$(date  -D "%Y%m%d" -d $(EXPIRES) +%s) - $$(date +%s)     )  / 86400  )) )
-
 
 EXTENSION_FILE := $(realpath extensions.conf)
 export EXTENSION_FILE

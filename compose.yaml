@@ -5,7 +5,7 @@ services:
         - tls-password
         - tls-ca-password
       args:
-        AIA_URL_SERVER_PORT: :4443
+        AIA_URL_SERVER_PORT: ":4443"
 
     ports:
       - "8080:80"
