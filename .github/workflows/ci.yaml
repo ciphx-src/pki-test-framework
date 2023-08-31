@@ -14,7 +14,7 @@ jobs:
 
       - name: build
         run: |
-          docker compose build --build-arg "EXPIRES=29990101"
+          docker compose build --no-cache
 
       - name: up
         run: |
